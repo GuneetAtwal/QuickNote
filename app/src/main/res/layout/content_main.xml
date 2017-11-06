@@ -8,4 +8,11 @@
     tools:context="com.blazeworks.quicknote.MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <fragment
+        android:id="@+id/main_activity_list_fragment"
+        android:name="com.blazeworks.quicknote.MainActivityListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </fragment>
+
 </android.support.constraint.ConstraintLayout>
