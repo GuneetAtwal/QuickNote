@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF9F9F9"
+    android:paddingTop="@dimen/list_row_layout_padding"
+    android:paddingBottom="@dimen/list_row_layout_padding"
+    android:paddingRight="@dimen/list_row_layout_padding">
+
+    <ImageView
+        android:id="@+id/list_item_note_image"
+        android:layout_width="@dimen/list_item_note_image_width"
+        android:layout_height="@dimen/list_item_note_image_height"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="15dp" />
+
+    <TextView
+        android:id="@+id/list_item_note_title"
+        android:text="Note Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/list_item_note_image"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_marginBottom="2dp" />
+
+    <TextView
+        android:id="@+id/list_item_note_body"
+        android:text="This is a placeholder , don't look here. I hope we improve this shit really fast."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/list_item_note_title"
+        android:layout_toEndOf="@+id/list_item_note_image"
+        android:layout_alignParentEnd="true"
+        android:ellipsize="end"
+        android:singleLine="true" />
+
+</RelativeLayout>
