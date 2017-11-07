@@ -16,6 +16,7 @@ public class NoteDetailActivity extends AppCompatActivity {
     private void createAndAddFragment(){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        setTitle(R.string.note_view_title);
         fragmentTransaction.add(R.id.note_container , new NoteViewFragment() , "NOTE_VIEW_FRAGMENT")
                 .commit();
     }
