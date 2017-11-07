@@ -5,6 +5,10 @@ import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
@@ -31,6 +35,35 @@ public class MainActivityListFragment extends ListFragment {
 
         noteArrayAdapter = new NoteArrayAdapter(getActivity(),notes);
         setListAdapter(noteArrayAdapter);
+
+        /* To create our context menu we need to register it for a view
+         * so we tell it we want to register it for ListView.
+         * Secondly it tells that if the user long presses on the listView
+         * or the view we registered it for, it should call onCreateContextMenu()
+         * callback which in turn inflates our menu items.
+         */
+        registerForContextMenu(getListView());
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu contextMenu , View view , ContextMenu.ContextMenuInfo menuInfo){
+        super.onCreateContextMenu(contextMenu , view , menuInfo);
+
+        /* This inflates our menu layout and creates a context menu
+         * with the items specified in the layout file
+         */
+        MenuInflater menuInflater = getActivity().getMenuInflater();
+        menuInflater.inflate(R.menu.long_press_context_ment , contextMenu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem menuItem){
+        switch (menuItem.getItemId()){
+            case R.id.edit:
+                Log.d("Context Edit" , "We pressed edit");
+                return true;
+        }
+        return super.onContextItemSelected(menuItem);
     }
 
     @Override
@@ -54,6 +87,5 @@ public class MainActivityListFragment extends ListFragment {
         intent.putExtra(MainActivity.NOTE_CATEGORY_EXTRA , note.getCategory());
 
         startActivity(intent);
-
     }
 }

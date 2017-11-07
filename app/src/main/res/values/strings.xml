@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">QuickNote</string>
     <string name="action_settings">Settings</string>
+    
+    <!-- Fragment Titles -->
     <string name="note_view_title">View Note</string>
     <string name="note_edit_title">Edit Note</string>
+    
+    <!-- Main List Long Click Context Menu -->
+    <string name="edit_menu">Edit</string>
 </resources>
