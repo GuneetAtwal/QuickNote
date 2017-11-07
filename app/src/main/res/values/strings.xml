@@ -8,4 +8,7 @@
     
     <!-- Main List Long Click Context Menu -->
     <string name="edit_menu">Edit</string>
+
+    <!-- Edit Fragment -->
+    <string name="save_note_btn">Save Note</string>
 </resources>

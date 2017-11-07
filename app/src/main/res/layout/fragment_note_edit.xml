@@ -1,7 +1,74 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.blazeworks.quicknote.NoteEditFragment">
+    tools:context="com.blazeworks.quicknote.NoteEditFragment"
+    android:paddingStart="12dp"
+    android:paddingTop="@dimen/list_row_layout_padding"
+    android:paddingBottom="@dimen/list_row_layout_padding"
+    android:paddingEnd="@dimen/list_row_layout_padding"
+    android:background="#f9f9f9">
 
-</FrameLayout>
+    <ImageButton
+        android:id="@+id/edit_item_note_image_button"
+        android:layout_width="@dimen/list_item_note_image_width"
+        android:layout_height="@dimen/list_item_note_image_height"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="15dp" />
+
+    <ScrollView
+        android:id="@+id/scroll_edit_item_note_title"
+        android:layout_toEndOf="@+id/edit_item_note_image_button"
+        android:layout_alignBottom="@+id/edit_item_note_image_button"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/list_item_note_image_height"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true">
+
+        <EditText
+            android:id="@+id/edit_item_note_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:minLines="1"
+            android:inputType="text"/>
+
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/scroll_edit_item_note_body"
+        android:layout_below="@+id/edit_item_note_image_button"
+        android:layout_above="@+id/edit_item_note_save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="4dp">
+
+        <EditText
+            android:id="@+id/edit_item_note_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:text="New Text"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/item_note_body_text_size" />
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/edit_item_note_save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save_note_btn"
+        android:layout_alignEnd="@+id/scroll_edit_item_note_body"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        />
+
+</RelativeLayout>
