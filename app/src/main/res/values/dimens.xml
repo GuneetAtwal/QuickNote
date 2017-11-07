@@ -3,4 +3,5 @@
 	<dimen name="list_row_layout_padding">10dp</dimen>
     <dimen name="list_item_note_image_height">60dp</dimen>
     <dimen name="list_item_note_image_width">60dp</dimen>
+	<dimen name="item_note_body_text_size">18sp</dimen>
 </resources>
