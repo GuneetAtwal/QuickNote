@@ -42,7 +42,7 @@ public class NoteEditFragment extends Fragment {
          */
         Note.Category noteCat = (Note.Category) intent.getSerializableExtra(MainActivity.NOTE_CATEGORY_EXTRA);
         noteImageButton.setImageDrawable(Note.categoryToDrawable(noteCat));
-        
+
         return editFragmentLayout;
     }
 

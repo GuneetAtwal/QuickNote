@@ -15,6 +15,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String NOTE_TITLE_EXTRA = "com.blazeworks.quicknote.NOTE_TITLE_EXTRA";
     public static final String NOTE_BODY_EXTRA = "com.blazeworks.quicknote.NOTE_BODY_EXTRA";
     public static final String NOTE_CATEGORY_EXTRA = "com.blazeworks.quicknote.NOTE_CATEGORY_EXTRA";
+    public static final String NOTE_FRAGMENT_TO_LAUNCH_EXTRA = "com.blazeworks.quicknote.NOTE_FRAGMENT_TO_LAUNCH_EXTRA";
+
+    /* Acts as a meta data of the fragment type */
+    public enum FragmentToLaunch {VIEW , EDIT}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
