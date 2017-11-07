@@ -2,6 +2,7 @@ package com.blazeworks.quicknote;
 
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.View;
@@ -35,6 +36,24 @@ public class MainActivityListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView listView , View view , int position , long id){
         super.onListItemClick(listView , view , position ,id);
+        launchNoteDetailActivity(position);
+    }
+
+    private void launchNoteDetailActivity(int position){
+        /* Grabs information of the note item we clicked on */
+        Note note = (Note) getListAdapter().getItem(position);
+
+        Intent intent = new Intent(getActivity() , NoteDetailActivity.class);
+
+        /* Pass along the information associated with the particular note
+         * to the NoteDetailActivity using the keys defined in MainActivity
+         */
+        intent.putExtra(MainActivity.NOTE_ID_EXTRA , note.getNoteId());
+        intent.putExtra(MainActivity.NOTE_TITLE_EXTRA , note.getTitle());
+        intent.putExtra(MainActivity.NOTE_BODY_EXTRA , note.getBody());
+        intent.putExtra(MainActivity.NOTE_CATEGORY_EXTRA , note.getCategory());
+
+        startActivity(intent);
 
     }
 }

@@ -11,6 +11,11 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String NOTE_ID_EXTRA = "com.blazeworks.quicknote.NOTE_ID_EXTRA";
+    public static final String NOTE_TITLE_EXTRA = "com.blazeworks.quicknote.NOTE_TITLE_EXTRA";
+    public static final String NOTE_BODY_EXTRA = "com.blazeworks.quicknote.NOTE_BODY_EXTRA";
+    public static final String NOTE_CATEGORY_EXTRA = "com.blazeworks.quicknote.NOTE_CATEGORY_EXTRA";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
