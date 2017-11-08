@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">QuickNote</string>
+
+    <!-- Main Menu Titles -->
+    <string name="action_add_note">ADD NOTE</string>
     <string name="action_settings">Settings</string>
     
     <!-- Fragment Titles -->
