@@ -25,6 +25,8 @@ public class NoteEditFragment extends Fragment {
     private AlertDialog alertDialogObject , confirmDialogObject;
     private Note.Category savedNoteCategory;
 
+    private final String NOTE_CATEGORY = "SAVED_NOTE_CATEGORY";
+
     public NoteEditFragment() {
         // Required empty public constructor
     }
@@ -33,6 +35,7 @@ public class NoteEditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View editFragmentLayout = inflater.inflate(R.layout.fragment_note_edit , container,false);
 
         noteTitle = editFragmentLayout.findViewById(R.id.edit_item_note_title);
@@ -45,13 +48,22 @@ public class NoteEditFragment extends Fragment {
         noteTitle.setText(intent.getExtras().getString(MainActivity.NOTE_TITLE_EXTRA));
         noteBody.setText(intent.getExtras().getString(MainActivity.NOTE_BODY_EXTRA));
 
-        /* Note.Category is passed as a serialized object so we get it as that
-         * Then we use the Note class's static method categoryToDrawable() to
-         * get the image drawable.
+        /*
+         * if just our orientation is changed then savedInstanceState is not null
+         * so grab the savedNoteCategory from it which we passed using
+         * onSaveInstanceState() method.
          */
-        Note.Category noteCat = (Note.Category) intent.getSerializableExtra(MainActivity.NOTE_CATEGORY_EXTRA);
-        savedNoteCategory = noteCat;
-        noteImageButton.setImageDrawable(Note.categoryToDrawable(noteCat));
+        if(savedInstanceState!=null){
+            savedNoteCategory = (Note.Category) savedInstanceState.getSerializable(NOTE_CATEGORY);
+        } else {
+            /* Note.Category is passed as a serialized object so we get it as that
+             * Then we use the Note class's static method categoryToDrawable() to
+             * get the image drawable.
+             */
+            savedNoteCategory = (Note.Category) intent.getSerializableExtra(MainActivity.NOTE_CATEGORY_EXTRA);
+        }
+
+        noteImageButton.setImageDrawable(Note.categoryToDrawable(savedNoteCategory));
 
         /* This method builds alertDialogBox to change categories */
         buildCategoryPickerDialog();
@@ -78,6 +90,12 @@ public class NoteEditFragment extends Fragment {
         });
 
         return editFragmentLayout;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putSerializable(NOTE_CATEGORY , savedNoteCategory);
     }
 
     private void buildCategoryPickerDialog(){
