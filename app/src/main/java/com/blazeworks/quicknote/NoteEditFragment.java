@@ -1,6 +1,8 @@
 package com.blazeworks.quicknote;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +18,9 @@ import android.widget.ImageButton;
  */
 public class NoteEditFragment extends Fragment {
 
+    private ImageButton noteImageButton;
+    private AlertDialog alertDialogObject;
+    private Note.Category savedNoteCategory;
 
     public NoteEditFragment() {
         // Required empty public constructor
@@ -29,7 +34,7 @@ public class NoteEditFragment extends Fragment {
 
         EditText noteTitle = editFragmentLayout.findViewById(R.id.edit_item_note_title);
         EditText noteBody = editFragmentLayout.findViewById(R.id.edit_item_note_body);
-        ImageButton noteImageButton = editFragmentLayout.findViewById(R.id.edit_item_note_image_button);
+        noteImageButton = editFragmentLayout.findViewById(R.id.edit_item_note_image_button);
 
         Intent intent = getActivity().getIntent();
 
@@ -43,7 +48,50 @@ public class NoteEditFragment extends Fragment {
         Note.Category noteCat = (Note.Category) intent.getSerializableExtra(MainActivity.NOTE_CATEGORY_EXTRA);
         noteImageButton.setImageDrawable(Note.categoryToDrawable(noteCat));
 
+        /* This method builds alertDialogBox to change categories */
+        buildCategoryPickerDialog();
+
+        noteImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialogObject.show();
+            }
+        });
+
         return editFragmentLayout;
+    }
+
+    private void buildCategoryPickerDialog(){
+        final String[] categories= {"Personal" , "Finance" , "Technical" , "Quote"};
+        AlertDialog.Builder categoryBuilder = new AlertDialog.Builder(getActivity());
+        categoryBuilder.setTitle("Choose Note Type");
+        categoryBuilder.setSingleChoiceItems(categories, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                switch (item){
+                    case 0:
+                        savedNoteCategory = Note.Category.PERSONAL;
+                        noteImageButton.setImageDrawable(Note.categoryToDrawable(savedNoteCategory));
+                        break;
+                    case 1:
+                        savedNoteCategory = Note.Category.FINANCE;
+                        noteImageButton.setImageDrawable(Note.categoryToDrawable(savedNoteCategory));
+                        break;
+                    case 2:
+                        savedNoteCategory = Note.Category.TECHNICAL;
+                        noteImageButton.setImageDrawable(Note.categoryToDrawable(savedNoteCategory));
+                        break;
+                    case 3:
+                        savedNoteCategory = Note.Category.QUOTE;
+                        noteImageButton.setImageDrawable(Note.categoryToDrawable(savedNoteCategory));
+                        break;
+                }
+                /* It makes the alert dialog go when we click on any item in the alert dialog */
+                alertDialogObject.cancel();
+            }
+        });
+
+        alertDialogObject = categoryBuilder.create();
     }
 
 }
