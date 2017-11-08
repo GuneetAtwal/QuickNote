@@ -1,5 +1,6 @@
 package com.blazeworks.quicknote;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String NOTE_FRAGMENT_TO_LAUNCH_EXTRA = "com.blazeworks.quicknote.NOTE_FRAGMENT_TO_LAUNCH_EXTRA";
 
     /* Acts as a meta data of the fragment type */
-    public enum FragmentToLaunch {VIEW , EDIT}
+    public enum FragmentToLaunch {VIEW , EDIT , CREATE}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if(id == R.id.action_add_note){
+            Intent intent = new Intent(this , NoteDetailActivity.class);
+            intent.putExtra(NOTE_FRAGMENT_TO_LAUNCH_EXTRA , FragmentToLaunch.CREATE);
+            startActivity(intent);
             return true;
         }
 

@@ -24,6 +24,7 @@ public class NoteEditFragment extends Fragment {
     private ImageButton noteImageButton;
     private AlertDialog alertDialogObject , confirmDialogObject;
     private Note.Category savedNoteCategory;
+    private boolean newNote;
 
     private final String NOTE_CATEGORY = "SAVED_NOTE_CATEGORY";
 
@@ -36,6 +37,13 @@ public class NoteEditFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        /* get boolean value passed by the note detail activity
+         * so that we can handle the new note situation
+         */
+        Bundle bundle = this.getArguments();
+        if(bundle!=null)
+            newNote = bundle.getBoolean(NoteDetailActivity.NEW_NOTE_EXTRA , false);
+
         View editFragmentLayout = inflater.inflate(R.layout.fragment_note_edit , container,false);
 
         noteTitle = editFragmentLayout.findViewById(R.id.edit_item_note_title);
@@ -45,25 +53,30 @@ public class NoteEditFragment extends Fragment {
 
         Intent intent = getActivity().getIntent();
 
-        noteTitle.setText(intent.getExtras().getString(MainActivity.NOTE_TITLE_EXTRA));
-        noteBody.setText(intent.getExtras().getString(MainActivity.NOTE_BODY_EXTRA));
+        noteTitle.setText(intent.getExtras().getString(MainActivity.NOTE_TITLE_EXTRA , ""));
+        noteBody.setText(intent.getExtras().getString(MainActivity.NOTE_BODY_EXTRA , ""));
 
-        /*
-         * if just our orientation is changed then savedInstanceState is not null
-         * so grab the savedNoteCategory from it which we passed using
-         * onSaveInstanceState() method.
-         */
-        if(savedInstanceState!=null){
-            savedNoteCategory = (Note.Category) savedInstanceState.getSerializable(NOTE_CATEGORY);
+        if(newNote){
+            noteImageButton.setImageDrawable(Note.categoryToDrawable(Note.Category.PERSONAL));
         } else {
+
+             /*
+              * if just our orientation is changed then savedInstanceState is not null
+              * so grab the savedNoteCategory from it which we passed using
+              * onSaveInstanceState() method.
+              */
+            if(savedInstanceState!=null){
+                savedNoteCategory = (Note.Category) savedInstanceState.getSerializable(NOTE_CATEGORY);
+            } else {
             /* Note.Category is passed as a serialized object so we get it as that
              * Then we use the Note class's static method categoryToDrawable() to
              * get the image drawable.
              */
-            savedNoteCategory = (Note.Category) intent.getSerializableExtra(MainActivity.NOTE_CATEGORY_EXTRA);
-        }
+                savedNoteCategory = (Note.Category) intent.getSerializableExtra(MainActivity.NOTE_CATEGORY_EXTRA);
+            }
 
-        noteImageButton.setImageDrawable(Note.categoryToDrawable(savedNoteCategory));
+            noteImageButton.setImageDrawable(Note.categoryToDrawable(savedNoteCategory));
+        }
 
         /* This method builds alertDialogBox to change categories */
         buildCategoryPickerDialog();
