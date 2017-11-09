@@ -2,6 +2,8 @@ package com.blazeworks.quicknote;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by GuneetAtwal on 11/9/2017.
@@ -9,7 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class QuickNoteDbAdapter {
 
-    private static final String DATABSE_NAME = "quicknote.db";
+    private static final String DATABASE_NAME = "quicknote.db";
     private static final int DATABASE_VERSION = 1;
 
     public static final String NOTE_TABLE = "notes";
@@ -31,4 +33,49 @@ public class QuickNoteDbAdapter {
 
     private SQLiteDatabase sqLiteDatabase;
     private Context context;
+
+    private QuickNoteDbHelper quickNoteDbHelper;
+
+
+    QuickNoteDbAdapter(Context context){
+        this.context = context;
+    }
+
+    /*
+     * This method is used to get our database or open our dattabase
+     * so that we can manipulate it later.
+     */
+
+    public QuickNoteDbAdapter openDatabase() throws android.database.SQLException {
+
+        quickNoteDbHelper = new QuickNoteDbHelper(context);
+        sqLiteDatabase = quickNoteDbHelper.getWritableDatabase();
+
+        return this;
+    }
+
+    public void closeDatabase(){
+        quickNoteDbHelper.close();
+    }
+
+    private static class QuickNoteDbHelper extends SQLiteOpenHelper{
+
+        QuickNoteDbHelper(Context context){
+            super(context , DATABASE_NAME , null , DATABASE_VERSION);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            /* Create a new table */
+            db.execSQL(DATABASE_CREATE);
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            Log.w(QuickNoteDbHelper.class.getName() ,"The databass has upgraded from" + oldVersion + " to " + newVersion + " which will destroy all data ");
+            /* Destroys the table with drop command */
+            db.execSQL("DROP TABLE IF EXISTS " + NOTE_TABLE);
+            onCreate(db);
+        }
+    }
 }
