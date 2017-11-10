@@ -22,6 +22,7 @@ public class NoteEditFragment extends Fragment {
 
     private EditText noteTitle , noteBody;
     private ImageButton noteImageButton;
+    private long noteID;
     private AlertDialog alertDialogObject , confirmDialogObject;
     private Note.Category savedNoteCategory;
     private boolean newNote;
@@ -55,6 +56,7 @@ public class NoteEditFragment extends Fragment {
 
         noteTitle.setText(intent.getExtras().getString(MainActivity.NOTE_TITLE_EXTRA , ""));
         noteBody.setText(intent.getExtras().getString(MainActivity.NOTE_BODY_EXTRA , ""));
+        noteID = intent.getExtras().getLong(MainActivity.NOTE_ID_EXTRA, 0);
 
         if(newNote){
             savedNoteCategory = Note.Category.PERSONAL;
@@ -164,7 +166,7 @@ public class NoteEditFragment extends Fragment {
                 if(newNote){
                     quickNoteDbAdapter.createNote(noteTitle.getText() + "" , noteBody.getText() + "" , savedNoteCategory);
                 } else {
-
+                    quickNoteDbAdapter.updateNote(noteID ,noteTitle.getText() + "" , noteBody.getText() + "" , savedNoteCategory);
                 }
                 quickNoteDbAdapter.closeDatabase();
 
