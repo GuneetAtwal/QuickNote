@@ -18,7 +18,7 @@
         <CheckBoxPreference
             android:key="dark_background"
             android:title="@string/color_preferences_dark_background"
-            android:summary="color_preferences_dark_background_summary"
+            android:summary="@string/color_preferences_dark_background_summary"
             android:defaultValue="false" />
 
     </PreferenceCategory>
