@@ -64,9 +64,28 @@ public class MainActivityListFragment extends ListFragment {
         AdapterView.AdapterContextMenuInfo adapterContextMenuInfo = (AdapterView.AdapterContextMenuInfo) menuItem.getMenuInfo();
         int rowPosition = adapterContextMenuInfo.position;
 
+        /* Get the note at the position = rowPosition */
+        Note note = (Note) getListAdapter().getItem(rowPosition);
+
         switch (menuItem.getItemId()){
             case R.id.edit:
                 launchNoteDetailActivity(MainActivity.FragmentToLaunch.EDIT , rowPosition);
+                return true;
+            case R.id.delete:
+                QuickNoteDbAdapter noteDbAdapter = new QuickNoteDbAdapter(getActivity().getBaseContext());
+                noteDbAdapter.openDatabase();
+                /* deletes the note*/
+                noteDbAdapter.deleteNote(note.getNoteId());
+
+                /* When we delete our note the listView is not updated instantly
+                 * so what we are doing is forcing the activity to refresh automatically
+                 * by clearing all the notes and adding new updated list of notes from
+                 * the database and then notifying the fragment that our data set has changed.
+                 */
+                notes.clear();
+                notes.addAll(noteDbAdapter.getAllNotes());
+                noteArrayAdapter.notifyDataSetChanged();
+                noteDbAdapter.closeDatabase();
                 return true;
         }
 
