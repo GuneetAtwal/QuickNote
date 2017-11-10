@@ -1,5 +1,6 @@
 package com.blazeworks.quicknote;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+
 /**
  * Created by GuneetAtwal on 11/9/2017.
  */
@@ -60,15 +63,39 @@ public class QuickNoteDbAdapter {
         quickNoteDbHelper.close();
     }
 
+    public Note createNote(String noteTitle , String noteBody , Note.Category category){
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TITLE , noteTitle);
+        values.put(COLUMN_BODY , noteBody);
+        values.put(COLUMN_CATEGORY , category.name());
+        values.put(COLUMN_DATE , Calendar.getInstance().getTimeInMillis() + "");
+
+        long newNoteInsertedId = sqLiteDatabase.insert(NOTE_TABLE , null , values);
+
+        Cursor cursor = sqLiteDatabase.query(NOTE_TABLE , allColumns , COLUMN_ID + "=" + newNoteInsertedId , null , null , null , null);
+        /* Move to the first row(note) */
+        cursor.moveToFirst();
+
+        /* Convert the cursor info into Note */
+        Note newNote = cursorToNote(cursor);
+        cursor.close();
+        return newNote;
+    }
+
     public ArrayList<Note> getAllNotes (){
         ArrayList<Note> notes = new ArrayList<>();
 
+        /* Create an explicit cursor */
         Cursor cursor = sqLiteDatabase.query(NOTE_TABLE , allColumns , null , null , null , null , null);
 
+        /* loop through all the rows(notes) in the database ,
+         * convert the cursor into Notes and add them to the arrayList
+         */
         for(cursor.moveToLast(); !cursor.isBeforeFirst(); cursor.moveToPrevious()){
             Note note = cursorToNote(cursor);
             notes.add(note);
         }
+        /* closing the cursor is important */
         cursor.close();
 
         return notes;
