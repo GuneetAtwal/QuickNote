@@ -91,6 +91,10 @@ public class QuickNoteDbAdapter {
         return sqLiteDatabase.update(NOTE_TABLE , values , COLUMN_ID + "=" + noteID , null);
     }
 
+    public long deleteNote(long noteID){
+        return sqLiteDatabase.delete(NOTE_TABLE , COLUMN_ID + "=" + noteID , null);
+    }
+
     public ArrayList<Note> getAllNotes (){
         ArrayList<Note> notes = new ArrayList<>();
 
