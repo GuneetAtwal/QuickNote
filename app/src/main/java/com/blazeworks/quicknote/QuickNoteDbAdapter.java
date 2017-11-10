@@ -33,7 +33,7 @@ public class QuickNoteDbAdapter {
             + COLUMN_ID + " integer " + "PRIMARY KEY " + "AUTOINCREMENT "
             + COLUMN_TITLE + " text " + "NOT NULL "
             + COLUMN_BODY + " text " + "NOT NULL "
-            + COLUMN_CATEGORY + " integer " + "NOT NULL "
+            + COLUMN_CATEGORY + " text " + "NOT NULL "
             + COLUMN_DATE + ");";
 
     private SQLiteDatabase sqLiteDatabase;
