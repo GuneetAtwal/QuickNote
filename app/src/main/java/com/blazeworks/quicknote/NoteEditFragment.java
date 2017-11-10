@@ -57,7 +57,8 @@ public class NoteEditFragment extends Fragment {
         noteBody.setText(intent.getExtras().getString(MainActivity.NOTE_BODY_EXTRA , ""));
 
         if(newNote){
-            noteImageButton.setImageDrawable(Note.categoryToDrawable(Note.Category.PERSONAL));
+            savedNoteCategory = Note.Category.PERSONAL;
+            noteImageButton.setImageDrawable(Note.categoryToDrawable(savedNoteCategory));
         } else {
 
              /*
