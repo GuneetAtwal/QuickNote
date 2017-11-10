@@ -1,10 +1,12 @@
 package com.blazeworks.quicknote;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
 /**
  * Created by GuneetAtwal on 11/9/2017.
  */
@@ -56,6 +58,27 @@ public class QuickNoteDbAdapter {
 
     public void closeDatabase(){
         quickNoteDbHelper.close();
+    }
+
+    public ArrayList<Note> getAllNotes (){
+        ArrayList<Note> notes = new ArrayList<>();
+
+        Cursor cursor = sqLiteDatabase.query(NOTE_TABLE , allColumns , null , null , null , null , null);
+
+        for(cursor.moveToLast(); !cursor.isBeforeFirst(); cursor.moveToPrevious()){
+            Note note = cursorToNote(cursor);
+            notes.add(note);
+        }
+        cursor.close();
+
+        return notes;
+    }
+
+    private Note cursorToNote(Cursor cursor) {
+        Note newNote = new Note(cursor.getString(1) , cursor.getString(2)
+                , Note.Category.valueOf(cursor.getString(3)) , cursor.getLong(0) , cursor.getLong(4));
+
+        return newNote;
     }
 
     private static class QuickNoteDbHelper extends SQLiteOpenHelper{
