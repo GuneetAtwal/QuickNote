@@ -9,6 +9,7 @@
     <string name="note_view_title">View Note</string>
     <string name="note_edit_title">Edit Note</string>
     <string name="note_create_title">New Note</string>
+    <string name="application_settings_title">App Settings</string>
     
     <!-- Main List Long Click Context Menu -->
     <string name="edit_menu">Edit</string>

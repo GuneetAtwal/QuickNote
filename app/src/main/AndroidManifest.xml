@@ -22,8 +22,11 @@
         <activity
             android:name=".NoteDetailActivity"
             android:label="@string/note_edit_title"
-            android:parentActivityName=".NoteDetailActivity"></activity>
-        <activity android:name=".AppPreferencesActivity"></activity>
+            android:parentActivityName=".NoteDetailActivity" />
+        <activity
+            android:name=".AppPreferencesActivity"
+            android:label="@string/application_settings_title"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
