@@ -30,10 +30,10 @@ public class QuickNoteDbAdapter {
     private final String[] allColumns = {COLUMN_ID , COLUMN_TITLE , COLUMN_BODY , COLUMN_CATEGORY , COLUMN_DATE};
 
     public static final String DATABASE_CREATE = "create table " + NOTE_TABLE + " ("
-            + COLUMN_ID + " integer " + "PRIMARY KEY " + "AUTOINCREMENT "
-            + COLUMN_TITLE + " text " + "NOT NULL "
-            + COLUMN_BODY + " text " + "NOT NULL "
-            + COLUMN_CATEGORY + " text " + "NOT NULL "
+            + COLUMN_ID + " integer " + "PRIMARY KEY " + "AUTOINCREMENT, "
+            + COLUMN_TITLE + " text " + "NOT NULL, "
+            + COLUMN_BODY + " text " + "NOT NULL, "
+            + COLUMN_CATEGORY + " text " + "NOT NULL, "
             + COLUMN_DATE + ");";
 
     private SQLiteDatabase sqLiteDatabase;
