@@ -16,4 +16,13 @@
 
     <!-- Edit Fragment -->
     <string name="save_note_btn">Save Note</string>
+
+    <!-- App Preferences -->
+    <string name="general_preferences">General</string>
+    <string name="title_preferences">Title</string>
+    <string name="title_preferences_summary">The title will be used on the main Action Bar</string>
+    <string name="color_preferences">Theme</string>
+    <string name="color_preferences_dark_background">Dark Background</string>
+    <string name="color_preferences_dark_background_summary">This will change the theme to a dark theme</string>
+
 </resources>
