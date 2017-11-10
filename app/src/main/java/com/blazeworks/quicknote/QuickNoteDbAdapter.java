@@ -82,6 +82,15 @@ public class QuickNoteDbAdapter {
         return newNote;
     }
 
+    public long updateNote(long noteID , String newTitle , String newBody , Note.Category newCategory){
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TITLE , newTitle);
+        values.put(COLUMN_BODY , newBody);
+        values.put(COLUMN_CATEGORY , newCategory.name());
+
+        return sqLiteDatabase.update(NOTE_TABLE , values , COLUMN_ID + "=" + noteID , null);
+    }
+
     public ArrayList<Note> getAllNotes (){
         ArrayList<Note> notes = new ArrayList<>();
 
