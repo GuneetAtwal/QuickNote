@@ -154,6 +154,20 @@ public class NoteEditFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Log.d("Save Note Button","New Title" + noteTitle.getText()+ " New Body" + noteBody.getText() + " New Category" + savedNoteCategory);
+
+                QuickNoteDbAdapter quickNoteDbAdapter = new QuickNoteDbAdapter(getActivity().getBaseContext());
+                quickNoteDbAdapter.openDatabase();
+                /* if (new Note) then
+                        add new Note to the Database
+                 * else
+                        update the note information in the database.*/
+                if(newNote){
+                    quickNoteDbAdapter.createNote(noteTitle.getText() + "" , noteBody.getText() + "" , savedNoteCategory);
+                } else {
+
+                }
+                quickNoteDbAdapter.closeDatabase();
+
                 /* On Clicking confirm get the user back to Main Activity */
                 Intent intent = new Intent(getActivity() , MainActivity.class);
                 startActivity(intent);
