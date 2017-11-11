@@ -170,9 +170,12 @@ public class NoteEditFragment extends Fragment {
                 }
                 quickNoteDbAdapter.closeDatabase();
 
-                /* On Clicking confirm get the user back to Main Activity */
-                Intent intent = new Intent(getActivity() , MainActivity.class);
-                startActivity(intent);
+                 /*
+                  * Previously we were passing an intent to go to MainActivity
+                  * But now we are simply finishing our NoteDetailActivity so
+                  * that we don't see our fragments again when pressed back.
+                  */
+                getActivity().finish();
             }
         });
 
