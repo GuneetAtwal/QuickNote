@@ -135,7 +135,7 @@ public class QuickNoteDbAdapter {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            Log.w(QuickNoteDbHelper.class.getName() ,"The databass has upgraded from" + oldVersion + " to " + newVersion + " which will destroy all data ");
+            Log.w(QuickNoteDbHelper.class.getName() ,"The database has upgraded from" + oldVersion + " to " + newVersion + " which will destroy all data ");
             /* Destroys the table with drop command */
             db.execSQL("DROP TABLE IF EXISTS " + NOTE_TABLE);
             onCreate(db);
